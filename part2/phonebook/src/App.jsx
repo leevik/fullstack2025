@@ -47,7 +47,6 @@ function App() {
     };
     if (persons.some((p) => p.name === newName)) {
       if(window.confirm("päivitetäänkö?")){
-        console.log("hohhoijaa")
         const testi = persons.find(p => p.name === newName)
         console.log("testi: ", testi)
         personService
@@ -55,6 +54,7 @@ function App() {
         .then(returnedPerson => {
           setPersons(persons.map((person) => person.id === testi.id ? returnedPerson : person))
         })
+        console.log("personit: ", persons)
       }
     } else {
       personService
