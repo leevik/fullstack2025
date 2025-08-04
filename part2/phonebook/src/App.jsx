@@ -52,7 +52,7 @@ function App() {
         personService
         .update(testi.id, personObject)
         .then(returnedPerson => {
-          setPersons(persons.map((person) => person.id === testi.id ? returnedPerson : person))
+          setPersons(returnedPerson)
         })
         console.log("personit: ", persons)
       }
