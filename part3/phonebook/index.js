@@ -142,7 +142,6 @@ app.post("/api/persons", async (request, response, next) => {
 app.put("/api/persons/:id", async (req, res, next) => {
   try {
     const person = await Person.findByIdAndUpdate(req.params.id, req.body)
-    
     res.json({
       ...person.toObject(),
       id: person._id
