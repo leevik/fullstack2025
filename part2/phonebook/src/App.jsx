@@ -11,6 +11,7 @@ function App() {
   const [newName, setNewName] = useState("type");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [filter, setFilter] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     personService
@@ -64,13 +65,13 @@ function App() {
         })
         .catch(error => {
           console.log(error)
+          setErrorMessage(error.response.data.error)
         })
       setNewName("")
       setPhoneNumber("")
     }
   };
   const handleFilterChange = (event) => {
-    event.preventDefault();
     setFilter(event.target.value);
   };
 
@@ -91,6 +92,11 @@ function App() {
   return (
     <div>
       <h2>Phonebook</h2>
+      {errorMessage && (
+        <div style={{ color: 'red', padding: '10px', border: '1px solid red', marginBottom: '10px' }}>
+          {errorMessage}
+        </div>
+      )}
       filter shown with:
       <input type="text" value={filter} onChange={handleFilterChange} />
       <Form

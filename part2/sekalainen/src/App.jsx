@@ -27,6 +27,7 @@ function App() {
   const [notes, setNotes] = useState([]);
   const [newNote, setNewNote] = useState("a new note...");
   const [showAll, setShowAll] = useState(true);
+  const [errorMessage, setErrorMessage] = useState(null);
 
   const toggleImportanceOf = (id) => {
     const note = notes.find((n) => n.id === id);
@@ -90,6 +91,11 @@ function App() {
       .then(asd => {
         setNotes(notes.concat(asd));
         setNewNote("");
+        setErrorMessage(null);
+      })
+      .catch(error => {
+        console.log(error.response.data.error);
+        setErrorMessage(error.response.data.error);
       });
   };
 
@@ -102,6 +108,11 @@ function App() {
     <>
       <div>
         <h1>Notes</h1>
+        {errorMessage && (
+          <div style={{ color: 'red', padding: '10px', border: '1px solid red', marginBottom: '10px' }}>
+            {errorMessage}
+          </div>
+        )}
         <button className="hola" onClick={handleButton}>{textToShow}</button>
         <ul>
           {notesToShow.map((note) => (
